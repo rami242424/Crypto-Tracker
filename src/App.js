@@ -27,14 +27,28 @@ const Box = styled.div`
   height: 100px;
   width: 100px;
   background-color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   animation: ${rotateAnimation} 1s linear infinite;
+
+  span{
+    font-size: 50px;
+    &:hover {
+      font-size: 10px
+    }
+    &:active {
+    opacity: 0;
+  }
 `;
 
 
 function App(){
   return (
     <Wrapper>
-      <Box/>
+      <Box>
+        <span>😘</span>
+      </Box>
     </Wrapper>
   );
 }

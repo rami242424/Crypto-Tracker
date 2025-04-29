@@ -5,22 +5,25 @@ const rotateAnimation = keyframes`
     transform:rotate(0deg);
     border-radius: 0px;
   }
-  25%{
-    transform:rotate(180deg);
-    border-radius: 50px;
-  }
   50%{
-    transform:rotate(360deg);
     border-radius: 100px;
   }
   100%{
-    transform:rotate(0deg);
+    transform:rotate(360deg);
     border-radius: 0px;
   }
 `;
 
 const Wrapper = styled.div`
   display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items : center;
+`;
+
+const Emoji = styled.span`
+  font-size: 50px;
 `;
 
 const Box = styled.div`
@@ -32,22 +35,25 @@ const Box = styled.div`
   align-items: center;
   animation: ${rotateAnimation} 1s linear infinite;
 
-  span{
-    font-size: 50px;
+  ${Emoji}{
+    
     &:hover {
       font-size: 10px
     }
     &:active {
     opacity: 0;
   }
+}
 `;
+
+
 
 
 function App(){
   return (
     <Wrapper>
       <Box>
-        <span>😘</span>
+        <Emoji as="p">😘</Emoji>
       </Box>
     </Wrapper>
   );

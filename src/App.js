@@ -22,10 +22,6 @@ const Wrapper = styled.div`
   align-items : center;
 `;
 
-const Emoji = styled.span`
-  font-size: 50px;
-`;
-
 const Box = styled.div`
   height: 100px;
   width: 100px;
@@ -34,26 +30,18 @@ const Box = styled.div`
   justify-content: center;
   align-items: center;
   animation: ${rotateAnimation} 1s linear infinite;
-
-  ${Emoji}{
-    
-    &:hover {
-      font-size: 10px
-    }
-    &:active {
-    opacity: 0;
-  }
-}
 `;
 
-
+const Title = styled.h1`
+  color: ${(props) => props.theme.textColor}
+`;
 
 
 function App(){
   return (
     <Wrapper>
       <Box>
-        <Emoji as="p">😘</Emoji>
+        <Title>안녕</Title>
       </Box>
     </Wrapper>
   );

@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Coin from "./routes/Coin";
 import CoinList from "./routes/CoinList";
 
+
 function Router(){
     return(
         <BrowserRouter>

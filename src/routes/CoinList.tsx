@@ -30,7 +30,9 @@ const Coin = styled.li<React.HTMLAttributes<HTMLLIElement>>`
     a {
         padding: 20px;
         transition: color .2s ease-in;
-        display: block;
+        display: flex;
+        align-items: center;
+    
     }
     &:hover {
         a {
@@ -56,6 +58,11 @@ const Loader = styled.span`
     display: block;
 `;
 
+const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+`;
 
 function CoinList()  {
     const [coins, setCoins] = useState<ICoins[]>([]);
@@ -78,7 +85,10 @@ function CoinList()  {
             {loading ? <Loader>Loading...</Loader> : <CoinsList>
                 {coins.map((coin) => (
                     <Coin key={coin.id}>
-                        <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
+                        <Link to={`/${coin.id}`}>
+                            <Img src={`https://cryptoicon-api.pages.dev/api/icon/${coin.symbol.toLowerCase()}`}/>
+                            {coin.name} &rarr;
+                        </Link>
                     </Coin>
                 ))}
             </CoinsList>}

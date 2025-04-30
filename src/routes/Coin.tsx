@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -32,19 +32,26 @@ const Loader = styled.span`
 interface RouteState {
     name: string;
 }
+
+// https://api.coinpaprika.com/v1/coins/btc-bitcoin
+// https://api.coinpaprika.com/v1/tickers/btc-bitcoin
 function Coin()  {
-    // const params = useParams();
-    // console.log(params);
-    // const { coinId } = useParams<{coinId:string}>();
     const { coinId } = useParams<IParams>();
     const [loading, setLoading] = useState(true);
-    // const location = useLocation();
-    // console.log(location, "location");
     const {state} = useLocation<RouteState>();
+    const [info, setInfo] = useState({});
+    const [priceInfo, setPriceInfo] = useState({});
+    useEffect(() => {
+        (async() => {
+            const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
+            const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
+            setInfo(infoData);
+            setPriceInfo(priceData);
+        })();
+    }, []);
     return (
         <Container>
             <Header>
-                {/* coin id를 직접 타이핑하여 들어갈때 */}
                 <Title>{state?.name || "Loading..."}</Title>
             </Header>
             {loading ? <Loader>Loading...</Loader> : null }

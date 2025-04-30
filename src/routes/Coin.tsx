@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Switch, useLocation, useParams } from "react-router-dom";
+import { Link, Route, Switch, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Price from "./Price";
 import Chart from "./Chart";
@@ -165,6 +165,8 @@ function Coin()  {
                             <span>{priceInfo?.max_supply}</span>
                         </OverviewItem>
                     </Overview>
+                    <Link to={`/${coinId}/price`}>PRICE</Link>
+                    <Link to={`/${coinId}/chart`}>CHART</Link>
                     <Switch>
                         <Route path={`/${coinId}/price`}>
                             <Price />
@@ -181,4 +183,4 @@ function Coin()  {
     );
 }
 
-export default Coin;
+export default Coin; 

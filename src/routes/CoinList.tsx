@@ -26,8 +26,8 @@ const Title = styled.h1`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li<React.HTMLAttributes<HTMLLIElement>>`
-    background-color: white;
-    color: ${(props) => props.theme.bgColor};
+    background-color: ${(props) => props.theme.cardBgColor};
+    color: ${(props) => props.theme.textColor};
     margin-bottom: 10px;
     border-radius: 15px;
     a {
@@ -39,7 +39,7 @@ const Coin = styled.li<React.HTMLAttributes<HTMLLIElement>>`
     }
     &:hover {
         a {
-            color: ${(props) => props.theme.accentColor}
+            color: ${(props)=> props.theme.accentColor};
         }
     }
 `;

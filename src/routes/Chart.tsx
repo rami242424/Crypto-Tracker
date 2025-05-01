@@ -4,7 +4,7 @@ import ApexChart from "react-apexcharts";
 
 interface IHistorical {
   time_open: string;
-  time_close: string;
+  time_close: string;  // 초 단위 UNIX timestamp
   open: number;
   high: number;
   low: number;
@@ -12,70 +12,59 @@ interface IHistorical {
   volume: number;
   market_cap: number;
 }
+
 interface ChartProps {
   coinId: string;
 }
+
 function Chart({ coinId }: ChartProps) {
-  const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
-    fetchCoinHistory(coinId)
+  const { isLoading, data } = useQuery<IHistorical[]>(
+    ["ohlcv", coinId],
+    () => fetchCoinHistory(coinId)
   );
+
+  if (isLoading || !data) {
+    return <div>Loading chart...</div>;
+  }
+
   return (
-    <div>
-      {isLoading ? (
-        "Loading chart..."
-      ) : (
-        <ApexChart
-          type="line"
-          series={[
-            {
-              name: "Price",
-              data: data?.map((price) => price.close),
-            },
-          ]}
-          options={{
-            theme: {
-              mode: "dark",
-            },
-            chart: {
-              height: 300,
-              width: 500,
-              toolbar: {
-                show: false,
-              },
-              background: "transparent",
-            },
-            grid: { show: false },
-            stroke: {
-              curve: "smooth",
-              width: 4,
-            },
-            yaxis: {
-              show: false,
-            },
-            xaxis: {
-              axisBorder: { show: false },
-              axisTicks: { show: false },
-              labels: { show: false },
-              type: "datetime",
-              categories: data?.map((price) => price.time_close),
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    gradientToColors: ["blue"], 
-                    stops: [0, 100],
-                },
-                colors: ["red"],
-            },
-            tooltip: {
-                y: {
-                    formatter: (value) => `$${value.toFixed(2)}`
-                }
-            }
-          }}
-        />
-      )}
-    </div>
+    <ApexChart
+      type="candlestick"
+      series={[
+        {
+          data: data.map((price) => ({
+            x: new Date(parseInt(price.time_close, 10) * 1000),  
+            y: [price.open, price.high, price.low, price.close],
+          })),
+        },
+      ]}
+      options={{
+        chart: {
+          type: "candlestick",
+          background: "transparent",
+          toolbar: { show: false },
+          zoom: { enabled: false },
+        },
+        theme: { mode: "dark" },
+        xaxis: {
+          type: "datetime",
+          axisBorder: { show: false },
+          axisTicks: { show: false },
+          labels: { datetimeUTC: false },
+        },
+        yaxis: { tooltip: { enabled: true } },
+        plotOptions: {
+          candlestick: {
+            colors: { upward: "#26a69a", downward: "#ef5350" },
+            wick: { useFillColor: true },
+          },
+        },
+        tooltip: { x: { format: "yyyy-MM-dd HH:mm" } },
+        grid: { show: false },
+      }}
+      width="100%"
+      height={350}
+    />
   );
 }
 

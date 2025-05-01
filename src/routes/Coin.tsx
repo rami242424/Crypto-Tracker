@@ -5,6 +5,7 @@ import {
   useLocation,
   useParams,
   useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -40,7 +41,7 @@ const Header = styled.header`
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props)=> props.theme.cardBgColor};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -67,12 +68,12 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.span<{ isActive: boolean }>`
+const Tab = styled.span<{ isActive: boolean;  children?: React.ReactNode }>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color:  ${(props)=> props.theme.cardBgColor};
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
@@ -81,6 +82,13 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
+
+const Direction = styled.div`
+  padding-top: 15px;
+  font-size: 13px;
+`;
+
+
 
 interface RouteParams {
   coinId: string;
@@ -109,7 +117,7 @@ interface IInfoData {
   first_data_at: string;
   last_data_at: string;
 }
-interface IPriceData {
+export interface IPriceData {
   id: string;
   name: string;
   symbol: string;
@@ -144,6 +152,7 @@ interface IPriceData {
 }
 
 function Coin() {
+  const history = useHistory();
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
@@ -163,11 +172,17 @@ function Coin() {
       <Helmet>
         <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
       </Helmet>
+
+      <Direction>
+        <Link to="/">&larr; Home</Link>
+      </Direction>
+      
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
       </Header>
+    
       {tickersLoading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -198,12 +213,18 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Link to={`/${coinId}/chart`}>CHART</Link>
-          <Link to={`/${coinId}/price`}>PRICE</Link>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+          </Tabs>
 
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price />
+              <Price coinId={coinId}/>
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId}/>

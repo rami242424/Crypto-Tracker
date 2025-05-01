@@ -4,16 +4,16 @@ import CoinList from "./routes/CoinList";
 
 function Router(){
     return(
-        <BrowserRouter>
+        //<BrowserRouter>
             <Switch>
                 <Route path="/:coinId">
                     <Coin />
                 </Route>
-                <Route path="/">
+                <Route path="/" exact>
                     <CoinList />
                 </Route>
             </Switch>
-        </BrowserRouter>
+        //</BrowserRouter>
     );
 }
 

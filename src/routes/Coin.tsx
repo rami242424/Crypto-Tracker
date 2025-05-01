@@ -83,13 +83,6 @@ const Tab = styled.span<{ isActive: boolean;  children?: React.ReactNode }>`
   }
 `;
 
-const Direction = styled.div`
-  padding-top: 15px;
-  font-size: 13px;
-`;
-
-
-
 interface RouteParams {
   coinId: string;
 }
@@ -153,7 +146,6 @@ export interface IPriceData {
 
 
 function Coin() {
-  const history = useHistory();
   const { coinId } = useParams<RouteParams>();
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
@@ -173,10 +165,6 @@ function Coin() {
       <Helmet>
         <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
       </Helmet>
-
-      <Direction>
-        <Link to="/">&larr; Home</Link>
-      </Direction>
       
       <Header>
         <Title>

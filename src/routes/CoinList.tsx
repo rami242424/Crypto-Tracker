@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "./api";
 import { Helmet } from "react-helmet";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -65,11 +67,11 @@ const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
     margin-right: 10px;
 `;
 
-interface ICoinListProps {
-   
-}
 
-function CoinList({} :ICoinListProps)  {
+
+function CoinList()  {
+    const setDarkAtom = useSetRecoilState(isDarkAtom);
+    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
     const { isLoading, data} = useQuery<ICoins[]>("allCoinsData", fetchCoins );
     return (
         <Container>
@@ -78,7 +80,7 @@ function CoinList({} :ICoinListProps)  {
             </Helmet>
             <Header>
                 <Title>코인</Title>
-                <button>toggle dark mode</button>
+                <button onClick={toggleDarkAtom}>toggle mode</button>
             </Header>
             {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
                 {data?.slice(0, 20).map((coin) => (

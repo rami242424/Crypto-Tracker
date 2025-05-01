@@ -47,7 +47,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 33%;
   span:first-child {
     font-size: 10px;
     font-weight: 400;
@@ -66,17 +66,17 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.span<React.HTMLAttributes<HTMLSpanElement> & { isActive: boolean }>`
+const Tab = styled.span<{ isActive: boolean }>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 7px 0px;
   border-radius: 10px;
   color: ${(props) =>
     props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
+    padding: 7px 0px;
     display: block;
   }
 `;
@@ -87,6 +87,7 @@ interface RouteParams {
 interface RouteState {
   name: string;
 }
+
 interface IInfoData {
   id: string;
   name: string;
@@ -188,8 +189,8 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Link to={`/${coinId}/price`}>PRICE</Link>
           <Link to={`/${coinId}/chart`}>CHART</Link>
+          <Link to={`/${coinId}/price`}>PRICE</Link>
 
           <Switch>
             <Route path={`/:coinId/price`}>

@@ -65,7 +65,11 @@ const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
     margin-right: 10px;
 `;
 
-function CoinList()  {
+interface ICoinListProps {
+    toggleDark : () => void;
+}
+
+function CoinList({toggleDark} :ICoinListProps)  {
     const { isLoading, data} = useQuery<ICoins[]>("allCoinsData", fetchCoins );
     return (
         <Container>
@@ -74,6 +78,7 @@ function CoinList()  {
             </Helmet>
             <Header>
                 <Title>코인</Title>
+                <button onClick={toggleDark}>toggle dark mode</button>
             </Header>
             {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
                 {data?.slice(0, 20).map((coin) => (

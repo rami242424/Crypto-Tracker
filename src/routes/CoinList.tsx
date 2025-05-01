@@ -70,8 +70,6 @@ const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
 
 
 function CoinList()  {
-    const setDarkAtom = useSetRecoilState(isDarkAtom);
-    const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
     const { isLoading, data} = useQuery<ICoins[]>("allCoinsData", fetchCoins );
     return (
         <Container>
@@ -80,7 +78,6 @@ function CoinList()  {
             </Helmet>
             <Header>
                 <Title>코인</Title>
-                <button onClick={toggleDarkAtom}>toggle mode</button>
             </Header>
             {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
                 {data?.slice(0, 20).map((coin) => (

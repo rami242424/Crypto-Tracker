@@ -41,9 +41,7 @@ const Coin = styled.li<React.HTMLAttributes<HTMLLIElement>>`
             color: ${(props) => props.theme.accentColor}
         }
     }
-
 `;
-
 
 interface ICoins {
     id: string,
@@ -68,18 +66,6 @@ const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
 
 function CoinList()  {
     const { isLoading, data} = useQuery<ICoins[]>("allCoinsData", fetchCoins );
-    /* const [coins, setCoins] = useState<ICoins[]>([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        (async() => {
-            const response = await fetch("https://api.coinpaprika.com/v1/coins");
-            const json = await response.json();
-            // console.log(json, "json")
-            setCoins(json.slice(0, 20));
-            setLoading(false);
-        })();
-    }, []);
-    // console.log(coins); */
     return (
         <Container>
             <Header>

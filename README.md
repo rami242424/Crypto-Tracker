@@ -57,7 +57,7 @@ https://rami242424.github.io/Crypto-Tracker/
 
 ## 📂 폴더 구조
 
-```
+```plaintext
 src/
 ├─ api/
 │  └─ api.ts            # Coin API 호출 함수
@@ -73,7 +73,7 @@ src/
 ├─ theme.ts             # styled-components 테마 정의
 ├─ App.tsx              # ThemeProvider, GlobalStyle 적용
 └─ index.tsx            # Root 렌더링 & BrowserRouter 감싸기
-```
+
 
 ---
 

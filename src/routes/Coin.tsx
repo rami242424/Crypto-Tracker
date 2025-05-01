@@ -197,14 +197,8 @@ function Coin() {
             </OverviewItem>
           </Overview>
 
-          <Tabs>
-            <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
-            </Tab>
-            <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
-            </Tab>
-          </Tabs>
+          <Link to={`/${coinId}/price`}>PRICE</Link>
+          <Link to={`/${coinId}/chart`}>CHART</Link>
 
           <Switch>
             <Route path={`/:coinId/price`}>
@@ -214,6 +208,7 @@ function Coin() {
               <Chart />
             </Route>
           </Switch>
+
         </>
       )}
     </Container>

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoins } from "./api";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -65,7 +67,8 @@ const Img = styled.img<React.ImgHTMLAttributes<HTMLImageElement>>`
 `;
 
 function CoinList()  {
-    const [coins, setCoins] = useState<ICoins[]>([]);
+    const { isLoading, data} = useQuery<ICoins[]>("allCoinsData", fetchCoins );
+    /* const [coins, setCoins] = useState<ICoins[]>([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         (async() => {
@@ -76,14 +79,14 @@ function CoinList()  {
             setLoading(false);
         })();
     }, []);
-    // console.log(coins);
+    // console.log(coins); */
     return (
         <Container>
             <Header>
                 <Title>코인</Title>
             </Header>
-            {loading ? <Loader>Loading...</Loader> : <CoinsList>
-                {coins.map((coin) => (
+            {isLoading ? <Loader>Loading...</Loader> : <CoinsList>
+                {data?.slice(0, 20).map((coin) => (
                     <Coin key={coin.id}>
                         <Link to={{
                             pathname: `/${coin.id}`,

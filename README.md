@@ -57,7 +57,7 @@ https://rami242424.github.io/Crypto-Tracker/
 
 ## 📂 폴더 구조
 
-```plaintext
+
 src/
 ├─ api/
 │  └─ api.ts            # Coin API 호출 함수

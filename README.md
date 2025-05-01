@@ -1,4 +1,4 @@
-```markdown
+
 # 🚀 Crypto-Tracker
 
 ![GitHub Pages](https://img.shields.io/badge/deployed-yes-brightgreen)  

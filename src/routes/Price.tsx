@@ -1,4 +1,3 @@
-// src/routes/Price.tsx
 import React from "react";
 import { useQuery } from "react-query";
 import { fetchCoinTickers } from "./api";
@@ -57,19 +56,16 @@ export default function Price({ coinId }: PriceProps) {
 
   const USD = data.quotes.USD;
 
-  // 1) 가격은 통화 스타일로, 소수점 둘째 자리까지
   const formattedPrice = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 2,
   }).format(USD.price);
 
-  // 2) 변동률은 부호와 함께 소수점 둘째 자리까지
   const change24h = USD.percent_change_24h;
   const isNegative = change24h < 0;
   const formattedChange = `${isNegative ? "" : "+"}${change24h.toFixed(2)}%`;
 
-  // 3) 볼륨·시가총액은 compact notation (예: "29B")
   const compactFormatter = new Intl.NumberFormat("en-US", {
     notation: "compact",
     compactDisplay: "short",
